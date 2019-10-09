@@ -1,12 +1,12 @@
 module.exports = function zeros(expression) {
 
-  function counting(number, step) {
+  function counting(number, step, find, start) {
     var zero = 0;
-    var i = step, j = step;
+    var i = start, j = step;
     while (i <= number) {
       j = i;
-      while ((j % step) == 0) {
-        j = j / step;
+      while ((j % find) == 0) {
+        j = j / find;
         zero++;
       }
       i = i + step;
@@ -17,13 +17,13 @@ module.exports = function zeros(expression) {
   var unusedTwo = 0, unusedFive = 0, startPos = 0;
 
   function countingFive(number) {
-    return counting(number,5);
+    return counting(number,5,5,5);
   }
   function countingTwo(number) {
-    return counting(number,2);
+    return counting(number,2,2,2);
   }
-  function countingTen(number) {
-    return counting(number,10);
+  function countingExtraFive(number,start) {
+    return counting(number,2,5,start);
   }
 
   function define(str) {
@@ -34,10 +34,10 @@ module.exports = function zeros(expression) {
     } else {
         if ((num % 2) == 0) {
           unusedTwo+=countingTwo(num);
-          unusedFive+=countingTen(num);
-      } else {
-          unusedFive+=countingFive(num);
-          }
+          unusedFive+=countingExtraFive(num,2);
+        } else {
+            unusedFive+=countingExtraFive(num,1);
+            }
       }
   }
 
