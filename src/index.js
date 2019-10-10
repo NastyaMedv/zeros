@@ -14,7 +14,7 @@ module.exports = function zeros(expression) {
     return zero;
   }
 
-  var unusedTwo = 0, unusedFive = 0, startPos = 0;
+  var unusedTwo = 0, unusedFive = 0;
 
   function countingFive(number) {
     return counting(number,5,5,5);
@@ -41,16 +41,9 @@ module.exports = function zeros(expression) {
       }
   }
 
-  while (startPos < expression.length) {
-    let mult = expression.indexOf('*',startPos);
-    if (mult == -1) {
-      define(expression.slice(startPos,(expression.length+1)));
-      startPos = expression.length;
-    } else {
-      define(expression.slice(startPos,mult));
-      startPos = mult+1;
-    }
-  }
+  expression.split('*').forEach(function(element) {
+    define(element);
+  });
 
   return Math.min(unusedTwo, unusedFive);
 }
